@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,11 +15,11 @@ export default class App extends React.Component {
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollView}>
-              <DownloadDemo />
+            <DownloadDemo />
           </ScrollView>
         </SafeAreaView>
       </Fragment>
