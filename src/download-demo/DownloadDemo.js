@@ -52,8 +52,7 @@ export default class DownloadDemo extends React.Component {
 
         let task = RNBackgroundDownloader.download({
             id: 'download',
-            // url: 'https://i.ebayimg.com/09/!!e!V,uw!2M~$(KGrHqN,!k8Ez+580kqGBNP4cK1DSQ~~_35.jpg',
-            url: 'http://releases.ubuntu.com/18.04.3/ubuntu-18.04.3-desktop-amd64.iso',
+            url: 'https://i.ebayimg.com/09/!!e!V,uw!2M~$(KGrHqN,!k8Ez+580kqGBNP4cK1DSQ~~_35.jpg',
             destination: `${RNBackgroundDownloader.directories.documents}/mgs.jpg`
         })
             .begin(this.startDownloadProgress)
@@ -82,19 +81,24 @@ export default class DownloadDemo extends React.Component {
 
     finishDownloadProgress = () => {
         this.setState({
-            buttonDisabled: false
+            buttonDisabled: false,
+            progress: 1
         });
+
         console.log(`Download is done at ${new Date().toISOString()}!`);
+
+        NativeModules.Torradinha.show("Download concluído!!", NativeModules.Torradinha.SHORT);
     }
 
     cancelDownload = (error) => {
-        console.log('Download canceled due to error: ', error);
         this.setState({
             buttonDisabled: false,
             progress: null,
             size: null
         });
 
+        console.log('Download canceled due to error: ', error);
+        
         NativeModules.Torradinha.show('Download cancelado!!', NativeModules.Torradinha.SHORT);
     }
 
