@@ -77,7 +77,7 @@ public class RNBackgroundDownloaderModule extends ReactContextBaseJavaModule imp
                 .setDownloadConcurrentLimit(4)
                 .setHttpDownloader(new OkHttpDownloader(Downloader.FileDownloaderType.PARALLEL))
                 .enableRetryOnNetworkGain(true)
-                .setAutoRetryMaxAttempts(10)
+                .setAutoRetryMaxAttempts(1)
                 .build();
         fetch = Fetch.Impl.getInstance(fetchConfiguration);
         fetch.addListener(this);

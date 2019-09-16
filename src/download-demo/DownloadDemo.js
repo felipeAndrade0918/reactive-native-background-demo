@@ -20,10 +20,8 @@ export default class DownloadDemo extends React.Component {
     }
 
     componentDidMount() {
-        NativeModules.Torradinha.show('Batuta', NativeModules.Torradinha.SHORT);
-
         RNBackgroundDownloader.checkForExistingDownloads().then(lostTasks => {
-            console.log(`lost tasks: ${lostTasks}`);
+            console.log(`lost tasks: ${lostTasks.length}`);
 
             if (lostTasks.length > 0) {
                 this.setState({
@@ -38,7 +36,7 @@ export default class DownloadDemo extends React.Component {
             for (let task of lostTasks) {
                 console.log(`Task ${task.id} was found!`);
 
-                this.startDownloadProgress(task.totalBytes);
+                this.startDownloadProgress(task.totalBytes, task.percent);
 
                 task.progress(this.updateDownloadProgress)
                     .done(this.finishDownloadProgress)
@@ -48,6 +46,10 @@ export default class DownloadDemo extends React.Component {
     }
 
     startDownload = () => {
+        this.setState({
+            buttonDisabled: true
+        });
+
         let task = RNBackgroundDownloader.download({
             id: 'download',
             // url: 'https://i.ebayimg.com/09/!!e!V,uw!2M~$(KGrHqN,!k8Ez+580kqGBNP4cK1DSQ~~_35.jpg',
@@ -60,9 +62,9 @@ export default class DownloadDemo extends React.Component {
             .error(this.cancelDownload);
     }
 
-    startDownloadProgress = (size) => {
+    startDownloadProgress = (size, progress = 0) => {
         this.setState({
-            progress: 0,
+            progress: progress,
             size: size,
             buttonDisabled: true
         });
@@ -87,6 +89,13 @@ export default class DownloadDemo extends React.Component {
 
     cancelDownload = (error) => {
         console.log('Download canceled due to error: ', error);
+        this.setState({
+            buttonDisabled: false,
+            progress: null,
+            size: null
+        });
+
+        NativeModules.Torradinha.show('Download cancelado!!', NativeModules.Torradinha.SHORT);
     }
 
     render() {
