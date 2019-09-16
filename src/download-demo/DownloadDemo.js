@@ -20,6 +20,10 @@ export default class DownloadDemo extends React.Component {
     }
 
     componentDidMount() {
+        this.checkForExistingDownloads();
+    }
+
+    checkForExistingDownloads = () => {
         RNBackgroundDownloader.checkForExistingDownloads().then(lostTasks => {
             console.log(`lost tasks: ${lostTasks.length}`);
 
@@ -52,8 +56,8 @@ export default class DownloadDemo extends React.Component {
 
         let task = RNBackgroundDownloader.download({
             id: 'download',
-            url: 'https://i.ebayimg.com/09/!!e!V,uw!2M~$(KGrHqN,!k8Ez+580kqGBNP4cK1DSQ~~_35.jpg',
-            destination: `${RNBackgroundDownloader.directories.documents}/mgs.jpg`
+            url: 'http://releases.ubuntu.com/18.04.3/ubuntu-18.04.3-desktop-amd64.iso',
+            destination: `${RNBackgroundDownloader.directories.documents}/mgs.iso`
         })
             .begin(this.startDownloadProgress)
             .progress(this.updateDownloadProgress)
@@ -98,7 +102,7 @@ export default class DownloadDemo extends React.Component {
         });
 
         console.log('Download canceled due to error: ', error);
-        
+
         NativeModules.Torradinha.show('Download cancelado!!', NativeModules.Torradinha.SHORT);
     }
 
