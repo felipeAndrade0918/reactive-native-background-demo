@@ -2,7 +2,8 @@ import React from 'react';
 import {
   View,
   NativeModules,
-  Button
+  Button,
+  Text
 } from 'react-native';
 
 import RNBackgroundDownloader from '../background-download/Download';
@@ -15,9 +16,11 @@ export default class DownloadDemo extends React.Component {
     NativeModules.Torradinha.show('Batuta', NativeModules.Torradinha.SHORT);
 
     RNBackgroundDownloader.checkForExistingDownloads().then(lostTasks => {
-      console.log(`lost tasks: ${lostTasks}`)
+      console.log(`lost tasks: ${lostTasks}`);
+
       for (let task of lostTasks) {
         console.log(`Task ${task.id} was found!`);
+
         task.progress((percent) => {
           console.log(`Downloaded: ${percent * 100}%`);
         }).done(() => {
@@ -48,6 +51,9 @@ export default class DownloadDemo extends React.Component {
   render() {
     return (
     <View style={styles.sectionContainer}>
+        <Text style={styles.titleText}>
+            Download Demo
+        </Text>
         <Button
         title="Pode apertar bem forte"
         onPress={() => this.startDownload()}/>

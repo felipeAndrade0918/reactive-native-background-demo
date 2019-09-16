@@ -43,6 +43,12 @@ const styles = StyleSheet.create({
       paddingRight: 12,
       textAlign: 'right',
     },
+    titleText: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: 16
+    }
   });
 
   export default styles;
