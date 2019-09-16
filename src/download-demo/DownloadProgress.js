@@ -10,7 +10,7 @@ export default class DownloadProgress extends React.Component {
     render() {
         let { progress, size } = this.props;
 
-        if (progress == null || progress == 100) {
+        if (progress == null || progress == 1) {
             return (null);
         }
 
